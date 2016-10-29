@@ -1,0 +1,30 @@
+<!-- #this is page shows up when  the user clicks on the URL for the song  -->
+<div >
+  <div >
+    <a class="col-sm-offset-9 col-sm-1" href="/singles"><u>Songs</u></a>
+    <form action="/sessions/<%= @user.id %>" method="post">
+      <input type="hidden" name="authenticity_token" value="<%=form_authenticity_token%>">
+      <input type="hidden" name="_method" value="delete" />
+      <button type="submit" class="btn btn-link"><u>Log Out</u></button>
+    </form> 
+  </div>
+  <h3>Others who added  <%= @single.artist %>  <%= @single.title %></h3> 
+  <div  >
+    <table  >
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Times Added</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @users_uniq.each do |u| %>
+        <tr>
+          <td><a href="/users/<%= u.id %>"><u><%= u.first_name %> <%= u.last_name%></u></a></td>
+          <td><%= u.single_tracks.where(id: @single.id).count %></td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
